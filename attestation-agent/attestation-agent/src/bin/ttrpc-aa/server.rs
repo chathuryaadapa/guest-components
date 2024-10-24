@@ -24,7 +24,8 @@ use crate::ttrpc_protocol::attestation_agent_ttrpc::{
 };
 
 pub const AGENT_NAME: &str = "attestation-agent";
-
+pub const RUST_LOG: &str = "debug";
+pub const RUST_BACKTRACE: &str = "full cargo run";
 pub struct AA {
     inner: Mutex<AttestationAgent>,
 }
@@ -36,7 +37,9 @@ impl AttestationAgentService for AA {
         _ctx: &::ttrpc::r#async::TtrpcContext,
         req: GetTokenRequest,
     ) -> ::ttrpc::Result<GetTokenResponse> {
-        debug!("AA (ttrpc): get token ...");
+        info!("AA (ttrpc): Received get_token request with TokenType");
+        info!("AA (ttrpc): get token ...{}",req.TokenType);
+        debug!("AA (ttrpc): get token ...{}",req.TokenType);
 
         let mut attestation_agent = self.inner.lock().await;
 
