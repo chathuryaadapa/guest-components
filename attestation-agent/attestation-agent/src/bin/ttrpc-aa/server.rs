@@ -8,7 +8,7 @@ use ::ttrpc::proto::Code;
 use anyhow::*;
 use async_trait::async_trait;
 use attestation_agent::{AttestationAPIs, AttestationAgent};
-use log::{debug, error};
+use log::{debug, error, info};
 use tokio::sync::Mutex;
 
 use std::collections::HashMap;
