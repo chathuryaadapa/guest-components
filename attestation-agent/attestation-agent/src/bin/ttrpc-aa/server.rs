@@ -38,8 +38,7 @@ impl AttestationAgentService for AA {
         req: GetTokenRequest,
     ) -> ::ttrpc::Result<GetTokenResponse> {
         info!("AA (ttrpc): Received get_token request with TokenType");
-        info!("AA (ttrpc): get token ...{}",req.TokenType);
-        debug!("AA (ttrpc): get token ...{}",req.TokenType);
+        info!("AA (ttrpc): Received get_token request with TokenType: {}", req.TokenType);
 
         let mut attestation_agent = self.inner.lock().await;
 
@@ -54,7 +53,7 @@ impl AttestationAgentService for AA {
                 ::ttrpc::Error::RpcStatus(error_status)
             })?;
 
-        debug!("AA (ttrpc): Get token successfully!");
+        info!("AA (ttrpc): Get token successfully!");
 
         let mut reply = GetTokenResponse::new();
         reply.Token = token;
@@ -67,7 +66,7 @@ impl AttestationAgentService for AA {
         _ctx: &::ttrpc::r#async::TtrpcContext,
         req: GetEvidenceRequest,
     ) -> ::ttrpc::Result<GetEvidenceResponse> {
-        debug!("AA (ttrpc): get evidence ...");
+        info!("AA (ttrpc): get evidence ...");
 
         let mut attestation_agent = self.inner.lock().await;
 
@@ -83,7 +82,7 @@ impl AttestationAgentService for AA {
                 ::ttrpc::Error::RpcStatus(error_status)
             })?;
 
-        debug!("AA (ttrpc): Get evidence successfully!");
+        info!("AA (ttrpc): Get evidence successfully!");
 
         let mut reply = GetEvidenceResponse::new();
         reply.Evidence = evidence;
@@ -96,7 +95,7 @@ impl AttestationAgentService for AA {
         _ctx: &::ttrpc::r#async::TtrpcContext,
         req: ExtendRuntimeMeasurementRequest,
     ) -> ::ttrpc::Result<ExtendRuntimeMeasurementResponse> {
-        debug!("AA (ttrpc): extend runtime measurement ...");
+        info!("AA (ttrpc): extend runtime measurement ...");
 
         let mut attestation_agent = self.inner.lock().await;
 
@@ -113,7 +112,7 @@ impl AttestationAgentService for AA {
                 ::ttrpc::Error::RpcStatus(error_status)
             })?;
 
-        debug!("AA (ttrpc): extend runtime measurement succeeded.");
+        info!("AA (ttrpc): extend runtime measurement succeeded.");
         let reply = ExtendRuntimeMeasurementResponse::new();
         ::ttrpc::Result::Ok(reply)
     }
@@ -123,7 +122,7 @@ impl AttestationAgentService for AA {
         _ctx: &::ttrpc::r#async::TtrpcContext,
         req: UpdateConfigurationRequest,
     ) -> ::ttrpc::Result<UpdateConfigurationResponse> {
-        debug!("AA (ttrpc): update configuration ...");
+        info!("AA (ttrpc): update configuration ...");
 
         let mut attestation_agent = self.inner.lock().await;
 
@@ -139,7 +138,7 @@ impl AttestationAgentService for AA {
                 ::ttrpc::Error::RpcStatus(error_status)
             })?;
 
-        debug!("AA (ttrpc): update configuration succeeded.");
+        info!("AA (ttrpc): update configuration succeeded.");
         let reply = UpdateConfigurationResponse::new();
         ::ttrpc::Result::Ok(reply)
     }
