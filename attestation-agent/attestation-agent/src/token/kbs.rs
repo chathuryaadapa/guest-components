@@ -10,6 +10,7 @@ use anyhow::*;
 use async_trait::async_trait;
 use kbs_protocol::{evidence_provider::NativeEvidenceProvider, KbsClientBuilder};
 use serde::Serialize;
+use tracing::{info};
 
 #[derive(Serialize)]
 struct Message {
@@ -26,24 +27,28 @@ pub struct KbsTokenGetter {
 #[async_trait]
 impl GetToken for KbsTokenGetter {
     async fn get_token(&self) -> Result<Vec<u8>> {
+        info!("Initializing evidence provider...");
         let evidence_provider = Box::new(NativeEvidenceProvider::new()?);
-
+        info!("Building KBS client with URL: {}", self.kbs_host_url);
         let mut builder =
             KbsClientBuilder::with_evidence_provider(evidence_provider, &self.kbs_host_url);
 
         if let Some(cert) = &self.cert {
+            info!("Adding KBS certificate: {}", cert);
             builder = builder.add_kbs_cert(cert);
         }
 
         let mut client = builder.build()?;
-
+        info!("Requesting token from KBS...");
         let (token, tee_keypair) = client.get_token().await?;
+        info!("Received token: {}", token.content);
         let message = Message {
             token: token.content,
             tee_keypair: tee_keypair.to_pkcs1_pem()?.to_string(),
         };
-
+        info!("Serializing token and TEE keypair into JSON...");
         let res = serde_json::to_vec(&message)?;
+        info!("Serialized message: {:?}", res);
         Ok(res)
     }
 }
