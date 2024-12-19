@@ -26,7 +26,7 @@ RUSTFLAGS_ARGS ?=
 binary ?=
 binary_name ?=
 ATTESTER ?=
-features ?= coco_as,kbs
+features ?= coco_as,kbs,bin,ttrpc,se-attester,openssl
 OPENSSL ?=
 
 ifeq ($(SOURCE_ARCH), ppc64le)
@@ -39,20 +39,20 @@ endif
 
 ifeq ($(ttrpc), true)
     binary = --bin ttrpc-aa
-    features += bin,ttrpc
+#    features += bin,ttrpc
     binary_name = ttrpc-aa
 else
     binary = --bin grpc-aa
-    features += bin,grpc
+#    features += ,bin,grpc
     binary_name = grpc-aa
 endif
 
 ifdef ATTESTER
     ifneq ($(ATTESTER), none)
-        features += $(ATTESTER)
+ #       features += $(ATTESTER)
     endif
 else
-    features += all-attesters
+  #  features += all-attesters
 endif
 
 ifeq ($(LIBC), musl)
@@ -103,14 +103,14 @@ ifneq ($(RUSTFLAGS_ARGS),)
 endif
 
 ifdef OPENSSL
-    features := $(features),openssl
+   # features := $(features),openssl
 else
-    features := $(features),rust-crypto
+   # features := $(features),rust-crypto
 endif
 
 build:
-        echo "before building"
-        echo "$(features)"
+	echo "before building"
+	echo "$(features)"
 	cd attestation-agent && $(RUST_FLAGS) cargo build $(release) --no-default-features --features "$(features)" $(binary) $(LIBC_FLAG)
 	mv $(TARGET_DIR)/$(binary_name) $(TARGET)
 
