@@ -8,7 +8,7 @@ use ::ttrpc::proto::Code;
 use anyhow::*;
 use async_trait::async_trait;
 use attestation_agent::{AttestationAPIs, AttestationAgent};
-use log::{debug, error};
+use log::{debug, error, info};
 
 use std::collections::HashMap;
 use std::sync::Arc;
@@ -36,6 +36,7 @@ impl AttestationAgentService for AA {
         req: GetTokenRequest,
     ) -> ::ttrpc::Result<GetTokenResponse> {
         debug!("AA (ttrpc): get token ...");
+        info!("AA (ttrpc): Received get_token request with TokenType: {}", req.TokenType);
 
         let token = self.inner.get_token(&req.TokenType).await.map_err(|e| {
             error!("AA (ttrpc): get token failed\n {e:?}");

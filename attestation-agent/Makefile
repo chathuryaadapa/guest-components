@@ -107,7 +107,8 @@ ifdef OPENSSL
 else
     features := $(features),rust-crypto
 endif
-
+echo "before building"
+echo "$(features)"
 build:
 	cd attestation-agent && $(RUST_FLAGS) cargo build $(release) --no-default-features --features "$(features)" $(binary) $(LIBC_FLAG)
 	mv $(TARGET_DIR)/$(binary_name) $(TARGET)

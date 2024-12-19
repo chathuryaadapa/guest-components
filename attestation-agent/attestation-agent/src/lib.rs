@@ -110,7 +110,7 @@ impl AttestationAgent {
     pub fn new(config_path: Option<&str>) -> Result<Self> {
         let config = match config_path {
             Some(config_path) => {
-                info!("Using AA config file: {config_path}");
+                info!("Using AA config file update build: {config_path}");
                 Config::try_from(config_path)?
             }
             None => {
