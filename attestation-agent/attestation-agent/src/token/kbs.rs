@@ -10,7 +10,7 @@ use anyhow::*;
 use async_trait::async_trait;
 use kbs_protocol::{evidence_provider::NativeEvidenceProvider, KbsClientBuilder};
 use serde::Serialize;
-use tracing::{info};
+use log::{info};
 
 #[derive(Serialize)]
 struct Message {
