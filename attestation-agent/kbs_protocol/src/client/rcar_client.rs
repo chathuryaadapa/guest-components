@@ -100,15 +100,15 @@ impl KbsClient<Box<dyn EvidenceProvider>> {
                 self.repeat_rcar_handshake().await?;
             }
         } else {
-            info!("tokens in rcar_client.rs {} in else block",token)
-            info!("tokens in rcar_client.rs {}in else block 2",&self.token)
+            info!("tokens in rcar_client.rs {} in else block",token);
+            info!("tokens in rcar_client.rs {}in else block 2",&self.token);
             self.repeat_rcar_handshake().await?;
         }
 
         assert!(self.token.is_some());
 
         let token = self.token.clone().unwrap();
-        info!("tokens in rcar_client.rs {}",token)
+        info!("tokens in rcar_client.rs {}",token);
         let tee_key = self.tee_key.clone();
         Ok((token, tee_key))
     }
@@ -187,7 +187,7 @@ impl KbsClient<Box<dyn EvidenceProvider>> {
         }
 
         let challenge = resp.json::<Challenge>().await?;
-        debug!("get challenge: {challenge:#?}");
+        info!("get challenge: {challenge:#?}");
 
         let extra_params = challenge.extra_params;
 
@@ -203,7 +203,7 @@ impl KbsClient<Box<dyn EvidenceProvider>> {
         let evidence = self
             .generate_evidence(tee, runtime_data, challenge.nonce, algorithm)
             .await?;
-        debug!("get evidence with challenge: {evidence}");
+        info!("get evidence with challenge: {evidence}");
 
         let attest_endpoint = format!("{}/{KBS_PREFIX}/attest", self.kbs_host_url);
         let attest = Attestation {
@@ -211,7 +211,7 @@ impl KbsClient<Box<dyn EvidenceProvider>> {
             tee_evidence: serde_json::from_str(&evidence)?, // TODO: change attesters to return Value?
         };
 
-        debug!("send attest request.");
+        info!("send attest request.");
         let attest_response = self
             .http_client
             .post(attest_endpoint)
@@ -297,7 +297,7 @@ impl KbsClientCapabilities for KbsClient<Box<dyn EvidenceProvider>> {
         }
 
         for attempt in 1..=KBS_GET_RESOURCE_MAX_ATTEMPT {
-            debug!("KBS client: trying to request KBS, attempt {attempt}");
+            info!("KBS client: trying to request KBS, attempt {attempt}");
 
             let res = self
                 .http_client

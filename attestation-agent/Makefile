@@ -109,7 +109,7 @@ else
 endif
 
 build:
-	echo "before building"
+	echo "before building with arch condition"
 	echo "$(features)"
     ifeq ($(ARCH),s390x)
 	   cd attestation-agent && cargo build --verbose --release --no-default-features --features "coco_as,kbs,se-attester,bin,ttrpc,openssl"

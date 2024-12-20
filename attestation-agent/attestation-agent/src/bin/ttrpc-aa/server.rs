@@ -39,7 +39,7 @@ impl AttestationAgentService for AA {
         info!("AA (ttrpc): Received get_token request with TokenType: {}", req.TokenType);
 
         let token = self.inner.get_token(&req.TokenType).await.map_err(|e| {
-            info!("this is not the error")
+            info!("this is not the error");
             error!("AA (ttrpc): get token failed\n {e:?}");
             let mut error_status = ::ttrpc::proto::Status::new();
             error_status.set_code(Code::INTERNAL);

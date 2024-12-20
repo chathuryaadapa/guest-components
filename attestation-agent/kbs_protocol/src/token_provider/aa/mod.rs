@@ -51,7 +51,7 @@ impl TokenProvider for AATokenProvider {
             TokenType: TOKEN_TYPE.to_string(),
             ..Default::default()
         };
-        info!("token in mod.rs {}",req)
+        info!("token in mod.rs {}",req);
         let bytes = self
             .client
             .get_token(context::with_timeout(50 * 1000 * 1000 * 1000), &req)

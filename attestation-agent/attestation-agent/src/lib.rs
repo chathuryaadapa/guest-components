@@ -164,7 +164,7 @@ impl AttestationAPIs for AttestationAgent {
                 token::kbs::KbsTokenGetter::new(&self.config.read().await.token_configs.kbs)
                     .get_token()
                     .await
-            }info!("in lib.rs {}",token)
+            }info!("in lib.rs {}",token);
             #[cfg(feature = "coco_as")]
             token::TokenType::CoCoAS => {
                 token::coco_as::CoCoASTokenGetter::new(
