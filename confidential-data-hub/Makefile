@@ -99,7 +99,7 @@ endif
 build:
 	echo "before building cdh"
 	echo "$(features)"
-	cd hub && $(RUST_FLAGS) cargo build $(release) --no-default-features --features "$(features)" $(binary) $(LIBC_FLAG)
+	cd hub &&  cargo build --release --no-default-features --features "bin,ttrpc,kbs,aliyun,ehsm" --bin ttrpc-cdh --target s390x-unknown-linux-gnu
 	mv $(TARGET_DIR)/$(binary_name) $(TARGET)
 
 TARGET := $(TARGET_DIR)/$(BIN_NAME)
