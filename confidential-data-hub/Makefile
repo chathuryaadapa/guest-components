@@ -97,6 +97,8 @@ ifneq ($(RUSTFLAGS_ARGS),)
 endif
 
 build:
+	echo "before building cdh"
+	echo "$(features)"
 	cd hub && $(RUST_FLAGS) cargo build $(release) --no-default-features --features "$(features)" $(binary) $(LIBC_FLAG)
 	mv $(TARGET_DIR)/$(binary_name) $(TARGET)
 
