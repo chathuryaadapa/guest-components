@@ -111,7 +111,7 @@ endif
 build:
 	echo "before building"
 	echo "$(features)"
-	cd attestation-agent && RUST_LOG=attestation_agent cargo build --verbose --release --no-default-features --features "coco_as kbs se-attester bin ttrpc openssl" $(binary) $(LIBC_FLAG)
+	cd attestation-agent && RUST_LOG=attestation_agent cargo build --verbose --release --no-default-features --features "coco_as,kbs,se-attester,bin,ttrpc,openssl" $(binary) $(LIBC_FLAG)
 	mv $(TARGET_DIR)/$(binary_name) $(TARGET)
 
 TARGET := $(TARGET_DIR)/$(BIN_NAME)
