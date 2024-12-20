@@ -9,7 +9,6 @@ use attester::{detect_tee_type, BoxedAttester};
 use kbs_types::Tee;
 use std::{io::Write, str::FromStr};
 use tokio::sync::{Mutex, RwLock};
-use log::{info};
 pub use attester::InitdataResult;
 
 pub mod config;
@@ -164,7 +163,7 @@ impl AttestationAPIs for AttestationAgent {
                 token::kbs::KbsTokenGetter::new(&self.config.read().await.token_configs.kbs)
                     .get_token()
                     .await
-            }info!("in lib.rs {}",token);
+            }
             #[cfg(feature = "coco_as")]
             token::TokenType::CoCoAS => {
                 token::coco_as::CoCoASTokenGetter::new(

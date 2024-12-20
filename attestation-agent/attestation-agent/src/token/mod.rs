@@ -6,10 +6,8 @@
 use anyhow::Result;
 use async_trait::async_trait;
 use strum::EnumString;
-use log::{info};
 
 #[cfg(feature = "kbs")]
-info!("build feature as kbs");
 pub mod kbs;
 
 #[cfg(feature = "coco_as")]
