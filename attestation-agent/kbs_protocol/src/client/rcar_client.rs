@@ -100,15 +100,13 @@ impl KbsClient<Box<dyn EvidenceProvider>> {
                 self.repeat_rcar_handshake().await?;
             }
         } else {
-            info!("tokens in rcar_client.rs {} in else block",token);
-            info!("tokens in rcar_client.rs {}in else block 2",&self.token);
+            info!("tokens in rcar_client.rs {}in else block",self.token);
             self.repeat_rcar_handshake().await?;
         }
 
         assert!(self.token.is_some());
 
         let token = self.token.clone().unwrap();
-        info!("tokens in rcar_client.rs {}",token);
         let tee_key = self.tee_key.clone();
         Ok((token, tee_key))
     }
