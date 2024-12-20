@@ -111,7 +111,7 @@ endif
 build:
 	echo "before building with arch condition"
 	echo "$(features)"
-	ifeq ($(ARCH),s390x)
+ifeq ($(ARCH),s390x)
 	   cd attestation-agent && cargo build --verbose --release --no-default-features --features "coco_as,kbs,se-attester,bin,ttrpc,openssl"
 endif
 	mv $(TARGET_DIR)/$(binary_name) $(TARGET)
