@@ -40,7 +40,14 @@ impl GetToken for KbsTokenGetter {
 
         let mut client = builder.build()?;
         info!("Requesting token from KBS...");
-        let (token, tee_keypair) = client.get_token().await?;
+        if let Err(err) = client.get_token().await {
+            // Handle the error
+            info!("Error fetching token in kbs.rs: {:?}", err);
+            return Err(err); // Or handle it accordingly
+        }
+        let (token, tee_keypair) = client.get_token().await.unwrap(); // Safe here because error is handled
+        
+        // let (token, tee_keypair) = client.get_token().await?;
         info!("Received token: {}", token.content);
         let message = Message {
             token: token.content,

@@ -17,6 +17,7 @@ use attestation_agent::{AttestationAPIs, AttestationAgent};
 use log::{debug, error};
 use std::net::SocketAddr;
 use tonic::{transport::Server, Request, Response, Status};
+use log::{info};
 
 mod attestation {
     tonic::include_proto!("attestation_agent");
@@ -37,7 +38,7 @@ impl AttestationAgentService for AA {
         let request = request.into_inner();
 
         debug!("AA (grpc): get token ...");
-
+        info!("AA (ttrpc): Received get_token request with TokenType in grpc-aa: {}", request.token_type);
         let token = self
             .inner
             .get_token(&request.token_type)
