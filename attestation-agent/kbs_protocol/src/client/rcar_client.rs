@@ -100,7 +100,6 @@ impl KbsClient<Box<dyn EvidenceProvider>> {
                 self.repeat_rcar_handshake().await?;
             }
         } else {
-            info!("tokens in rcar_client.rs {}in else block",self.token);
             self.repeat_rcar_handshake().await?;
         }
 
